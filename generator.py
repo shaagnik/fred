@@ -16,7 +16,7 @@ class Voice:
 def gen_voice(length, lowest, highest):
     tone_range = interval.Interval(lowest, highest)
     notes = []
-    for l in range(0, length + 1):
+    for l in range(0, length):
         dist = randint(0, tone_range.cents/100)
         newNote = lowest.transpose(dist)
         notes.append(newNote)
@@ -36,3 +36,18 @@ class Piece:
             x.append(y)
         s = midi.realtime.StreamPlayer(x)
         s.play()
+    def mate(self, partner):
+        # should have some random mutation chance
+        child = Piece()
+        child.setVoices(self.voices[0:1].concatenate(partner.voices[2:3]))
+        return child
+
+def gen_piece(length, ranges):
+    voices = []
+    for r in ranges:
+        v = gen_voice(length, r[0],r[1])
+        voices.append(v)
+    result = Piece()
+    result.setVoices(voices)
+    return result
+
