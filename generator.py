@@ -39,7 +39,7 @@ class Piece:
     def mate(self, partner):
         # should have some random mutation chance
         child = Piece()
-        child.setVoices(self.voices[0:1].concatenate(partner.voices[2:3]))
+        child.setVoices([self.voices[0], self.voices[1], partner.voices[2], partner.voices[3]])
         return child
 
 def gen_piece(length, ranges):
