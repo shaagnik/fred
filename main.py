@@ -2,21 +2,25 @@
 
 from music21 import *
 from generator import *
+from weights import *
+from genetics import *
+from weightedrandomizer import *
 
-x = gen_piece(4, [[note.Note('c1'),
-	note.Note('c2')],
-	[note.Note('c3'),note.Note('c4')],
-	[note.Note('c5'),
-		note.Note('c6')],[note.Note('c7'),note.Note('c8')]])
-x.play()
+gen = gen_generation([], 10)
 
-y = gen_piece(4, [[note.Note('c1'),
-	note.Note('c2')],
-	[note.Note('c3'),note.Note('c4')],
-	[note.Note('c5'),
-		note.Note('c6')],[note.Note('c7'),note.Note('c8')]])
-y.play()
+print('generation 0')
+print(gen[0])
+gen[0][0].play()
 
-(x.mate(y)).play()
+i=0
+while i < 100:
+	print('generation ' + str(i+1))
+	newGen = gen_generation(gen, 100)
+	print(newGen[0])
+	newGen[0][0].play()
+	del gen[:]
+	gen = newGen
+	del newGen[:]
+	i+=1
 
 quit()
