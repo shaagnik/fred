@@ -1,26 +1,43 @@
 #!/usr/bin/env python
 
 from music21 import *
-from generator import *
-from weights import *
 from genetics import *
-from weightedrandomizer import *
+from weights import *
 
-gen = gen_generation([], 10)
+def get_top(list):
+	top = [None, 0]
+	for value, weight in list:
+		if(weight > top[1]):
+			top = [value, weight]
+	return top
+
+gen = gen_generation([], generation_size)
 
 print('generation 0')
-print(gen[0])
-gen[0][0].play()
+top = get_top(gen)
+top[0].play()
 
-i=0
-while i < 100:
+
+i = 0
+old_score = top[1]
+streak = 0
+while i < num_generations:
 	print('generation ' + str(i+1))
-	newGen = gen_generation(gen, 100)
-	print(newGen[0])
-	newGen[0][0].play()
+	new_gen = gen_generation(gen, generation_size)
+	if(i%100 == 0):
+		top = get_top(new_gen)
+		print(top[1], top[1] - old_score, streak)
+		if(top[1] - old_score > 0):
+			streak+= 1
+		else:
+			streak = 0
+		old_score = top[1]
+		top[0].write('top.mid')
 	del gen[:]
-	gen = newGen
-	del newGen[:]
-	i+=1
-
+	gen = new_gen
+	i += 1
+top = get_top(gen)
+print(top)
+top[0].write('top.mid')
+top[0].play()
 quit()
