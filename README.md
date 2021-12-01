@@ -48,7 +48,7 @@ Finally, it writes that top scoring composition to a file called `top.mid`, whic
 
 ## Future Work
 
-There are a lot of places I'd like to expand this project, in three main areas:
+There are a lot of places I'd like to expand this project, in four main areas:
 
 ### Generating
 
@@ -66,6 +66,9 @@ The weights are currently assigned arbitrarily based on my own experimentation. 
 
 Ideally, the weights and scoring could be entirely obfuscated by a neural net implementation - an AI could develop a scoring system based on training data (like the aforementioned Bach fugues), then use that as the fitness function of the genetic algorithm.
 
+### UI
+
+As it stands, there is essentially no UI for this project. Everything is manipulated within the code. I'd like to build an interface with which a user can tweak the parameter values more intuitively. Ideally, some optimization could make the generations much faster and have real-time feedback to different parameters.
 
 ## Files
 
